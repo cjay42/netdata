@@ -67,7 +67,7 @@ int create_listen_socket4(int port, int listen_backlog)
 		memset(&name, 0, sizeof(struct sockaddr_in));
 		name.sin_family = AF_INET;
 		name.sin_port = htons (port);
-		name.sin_addr.s_addr = htonl (INADDR_ANY);
+		name.sin_addr.s_addr = htonl (INADDR_LOOPBACK);
 
 		if(bind (sock, (struct sockaddr *) &name, sizeof (name)) < 0) {
 			close(sock);
@@ -105,7 +105,7 @@ int create_listen_socket6(int port, int listen_backlog)
 		memset(&name, 0, sizeof(struct sockaddr_in6));
 		name.sin6_family = AF_INET6;
 		name.sin6_port = htons ((uint16_t) port);
-		name.sin6_addr = in6addr_any;
+		name.sin6_addr = in6addr_loopback;
 		name.sin6_scope_id = 0;
 
 		if (bind (sock, (struct sockaddr *) &name, sizeof (name)) < 0) {
@@ -222,4 +222,3 @@ void *socket_listen_main(void *ptr)
 
 	return NULL;
 }
-
